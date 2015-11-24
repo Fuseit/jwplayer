@@ -1758,6 +1758,7 @@
                             }
                         }
                         if (!x)
+                            console.log '!x: ', !x
                             if (j.isString(e)) v = new f.playlist.loader,
                                 v.addEventListener(b.JWPLAYER_PLAYLIST_LOADED, function(a) {
                                     p.playlist = a.playlist;
