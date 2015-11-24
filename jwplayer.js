@@ -1769,11 +1769,17 @@
                                 }), x = !0, v.load(p.playlist);
                             else if (n.getStatus() === l.loaderstatus.COMPLETE) {
                             for (e = 0; e < p.modes.length; e++) {
+                                console.log 'e: ', e
                                 var d = p.modes[e],
                                     h = d.type;
+                                console.log 'd: ', d
+                                console.log 'h: ', h
                                 if (h && c[h]) {
                                     var m = l.extend({}, p);
                                     B = new c[h](F, d, m, n, g);
+                                    console.log 'm: ', m
+                                    console.log 'B: ', B
+                                    console.log 'B.supportsConfig(): ', B.supportsConfig()
                                     if (B.supportsConfig()) return B.addEventListener(b.ERROR, a), B.embed(), l.css("object.jwswf, .jwplayer:focus", {
                                             outline: "none"
                                         }), l.css(".jw-tab-focus:focus", {
@@ -1782,6 +1788,8 @@
                                         g
                                 }
                             }
+                            console.log 'p: ', p
+                            console.log 'p.fallback: ', p.fallback
                             p.fallback ? (e = "No suitable players found and fallback enabled", q(e, !0), l.log(e), new c.download(F, p, r)) : (e = "No suitable players found and fallback disabled", q(e, !1), l.log(e))
                         }
                     }
