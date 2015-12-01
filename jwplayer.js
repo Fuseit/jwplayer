@@ -477,13 +477,11 @@
         b.isHTTPS = function() {
             return 0 === window.location.href.indexOf("https")
         };
+
         b.repo = function() {
+            if (!jwplayer.assetHost) { return "" }
             var protocol = b.isHTTPS() ? "https:" : "http:";
-            var a = protocol + gon["assets_host"] + "/assets/jwplayer/";
-            try {
-                b.isHTTPS() && (a = a.replace("http://", "https://ssl."))
-            } catch (c) {}
-            return a
+            return protocol + jwplayer.assetHost;
         };
         b.versionCheck = function(a) {
             a = ("0" + a).split(/\W/);
@@ -1868,6 +1866,7 @@
         }
         var b = f.utils,
             j = f.playlist.item;
+
         (f.embed.config = function(c) {
             var g = {
                 fallback: !0,
@@ -1878,14 +1877,13 @@
                 aspectratio: ""
             };
             c = b.extend({}, g, f.defaults, c);
-            var protocol = b.isHTTPS() ? "https:" : "http:";
             var g = {
                     type: "html5",
-                    src: protocol + gon["assets_host"] + "/assets/jwplayer/jwplayer.html5.js"
+                    src: jwplayer.utils.protocol + jwplayer.jwplayerHtml5JsPath
                 },
                 k = {
                     type: "flash",
-                    src: protocol + gon["assets_host"] + "/assets/jwplayer/jwplayer.flash.swf"
+                    src: jwplayer.utils.protocol + jwplayer.jwplayerFlashSwfPath
                 };
             c.modes = "flash" === c.primary ? [k, g] : [g, k];
             c.listbar && (c.playlistsize = c.listbar.size, c.playlistposition = c.listbar.position, c.playlistlayout = c.listbar.layout);
@@ -2172,16 +2170,25 @@
             function k() {
                 v = "Adobe SiteCatalyst Error: Could not find Media Module"
             }
+
+            function setProtocol() {
+                if (!jwplayer.assetHost) {
+                    jwplayer.utils.protocol = ""
+                } else {
+                    jwplayer.utils.protocol = jwplayer.utils.isHTTPS() ? "https:" : "http:"
+                }
+            }
+            setProtocol();
             var a = b.repo(),
                 e = b.extend({}, f.defaults),
                 j = b.extend({}, e, g.config),
                 l = g.config,
                 h = j.plugins,
                 p = j.analytics,
-                m = a + "jwpsrv.js",
-                w = a + "sharing.js",
-                u = a + "related.js",
-                t = a + "gapro.js",
+                m = jwplayer.utils.protocol + jwplayer.jwpsrvJsPath,
+                w = jwplayer.utils.protocol + jwplayer.sharingJsPath,
+                u = jwplayer.utils.protocol + jwplayer.relatedJsPath,
+                t = jwplayer.utils.protocol + jwplayer.gaproJsPath,
                 e = f.key ? f.key : e.key,
                 n = (new f.utils.key(e)).edition(),
                 v, h = h ? h : {};

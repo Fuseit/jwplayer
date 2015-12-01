@@ -1,7 +1,5 @@
 ! function(a) {
     function b(d) {
-        console.log("jwpsrb.js started!");
-        console.log("asset_host: " + gon["assets_host"]);
         if (c[d]) return c[d].exports;
         var e = c[d] = {
             exports: {},
@@ -843,7 +841,7 @@
     function y(a) {
         return a && "object" == typeof a
     }
-    var protocol = jwplayer.utils.isHTTPS() ? "https:" : "http:";
+
     var z = jwplayer.jwpsrv,
         A = c(4),
         B = 0,
@@ -852,7 +850,7 @@
         E = "default",
         F = jwplayer.utils.exists,
         G = A.forEach,
-        H = protocol + gon["assets_host"] + "/assets/jwplayer/jwpsrv_frq.js",
+        H = jwplayer.utils.protocol + jwplayer.jwpsrvJsPath,
         I = {},
         J = function(a, b, c, d) {
             this.edition = d, this.debug = b, this.token = c, this.playerProxy = a, this.loader = new jwplayer.utils.scriptloader(H), A.isFunction(z.setSampleFrequency) || (z.setSampleFrequency = z.setSampleFrequency || function(a) {
