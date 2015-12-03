@@ -479,9 +479,7 @@
         };
 
         b.repo = function() {
-            if (!jwplayer.assetHost) { return "" }
-            var protocol = b.isHTTPS() ? "https:" : "http:";
-            return protocol + jwplayer.assetHost;
+            return ""
         };
         b.versionCheck = function(a) {
             a = ("0" + a).split(/\W/);
@@ -1879,11 +1877,11 @@
             c = b.extend({}, g, f.defaults, c);
             var g = {
                     type: "html5",
-                    src: jwplayer.utils.protocol + jwplayer.jwplayerHtml5JsPath
+                    src: jwplayer.jwplayerHtml5JsPath
                 },
                 k = {
                     type: "flash",
-                    src: jwplayer.utils.protocol + jwplayer.jwplayerFlashSwfPath
+                    src: jwplayer.jwplayerFlashSwfPath
                 };
             c.modes = "flash" === c.primary ? [k, g] : [g, k];
             c.listbar && (c.playlistsize = c.listbar.size, c.playlistposition = c.listbar.position, c.playlistlayout = c.listbar.layout);
@@ -2170,25 +2168,16 @@
             function k() {
                 v = "Adobe SiteCatalyst Error: Could not find Media Module"
             }
-
-            function setProtocol() {
-                if (!jwplayer.assetHost) {
-                    jwplayer.utils.protocol = ""
-                } else {
-                    jwplayer.utils.protocol = jwplayer.utils.isHTTPS() ? "https:" : "http:"
-                }
-            }
-            setProtocol();
             var a = b.repo(),
                 e = b.extend({}, f.defaults),
                 j = b.extend({}, e, g.config),
                 l = g.config,
                 h = j.plugins,
                 p = j.analytics,
-                m = jwplayer.utils.protocol + jwplayer.jwpsrvJsPath,
-                w = jwplayer.utils.protocol + jwplayer.sharingJsPath,
-                u = jwplayer.utils.protocol + jwplayer.relatedJsPath,
-                t = jwplayer.utils.protocol + jwplayer.gaproJsPath,
+                m = jwplayer.jwpsrvJsPath,
+                w = jwplayer.sharingJsPath,
+                u = jwplayer.relatedJsPath,
+                t = jwplayer.gaproJsPath,
                 e = f.key ? f.key : e.key,
                 n = (new f.utils.key(e)).edition(),
                 v, h = h ? h : {};

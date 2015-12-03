@@ -850,7 +850,7 @@
         E = "default",
         F = jwplayer.utils.exists,
         G = A.forEach,
-        H = jwplayer.utils.protocol + jwplayer.jwpsrvJsPath,
+        H = jwplayer.jwpsrvJsPath,
         I = {},
         J = function(a, b, c, d) {
             this.edition = d, this.debug = b, this.token = c, this.playerProxy = a, this.loader = new jwplayer.utils.scriptloader(H), A.isFunction(z.setSampleFrequency) || (z.setSampleFrequency = z.setSampleFrequency || function(a) {
