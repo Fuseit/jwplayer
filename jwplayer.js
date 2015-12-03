@@ -290,23 +290,29 @@
         b.styleDimension = function(a) {
             return a + (0 < a.toString().indexOf("%") ? "" : "px")
         };
-        b.getAbsolutePath = function(a, e) {
-            b.exists(e) || (e = document.location.href);
-            if (b.exists(a)) {
-                var c;
-                if (b.exists(a)) {
-                    c = a.indexOf("://");
-                    var d = a.indexOf("?");
-                    c = 0 < c && (0 > d || d > c)
-                } else c = void 0;
-                if (c) return a;
-                c = e.substring(0, e.indexOf("://") + 3);
-                var d = e.substring(c.length,
-                        e.indexOf("/", c.length + 1)),
+        b.getAbsolutePath = function(assetPath, currentPageUrl) {
+            b.exists(currentPageUrl) || (currentPageUrl = document.location.href);
+            if (b.exists(assetPath)) {
+                var colonDoubleSlashIndex;
+                if (b.exists(assetPath)) {
+                    colonDoubleSlashIndex = assetPath.indexOf("://");
+                    var d = assetPath.indexOf("?");
+                    colonDoubleSlashIndex = 0 < colonDoubleSlashIndex && (0 > d || d > colonDoubleSlashIndex)
+                } else colonDoubleSlashIndex = void 0;
+                if (colonDoubleSlashIndex) return assetPath;
+                colonDoubleSlashIndex = currentPageUrl.substring(0, currentPageUrl.indexOf("://") + 3);
+                var d = currentPageUrl.substring(colonDoubleSlashIndex.length,
+                        currentPageUrl.indexOf("/", colonDoubleSlashIndex.length + 1)),
                     h;
-                0 === a.indexOf("/") ? h = a.split("/") : (h = e.split("?")[0], h = h.substring(c.length + d.length + 1, h.lastIndexOf("/")), h = h.split("/").concat(a.split("/")));
+                0 === assetPath.indexOf("/") ? h = assetPath.split("/") : (h = currentPageUrl.split("?")[0], h = h.substring(colonDoubleSlashIndex.length + d.length + 1, h.lastIndexOf("/")), h = h.split("/").concat(assetPath.split("/")));
                 for (var p = [], g = 0; g < h.length; g++) h[g] && (b.exists(h[g]) && "." !== h[g]) && (".." === h[g] ? p.pop() : p.push(h[g]));
-                return c + d + "/" + p.join("/")
+
+                if (assetPath.indexOf("//") === -1) {
+                  return colonDoubleSlashIndex + d + "/" + p.join("/");
+                } else {
+                  return colonDoubleSlashIndex + p.join("/");
+                }
+
             }
         };
         b.extend = function() {
@@ -479,7 +485,7 @@
         };
 
         b.repo = function() {
-            return ""
+            return (b.isHTTPS() ? "https:" : "http:")
         };
         b.versionCheck = function(a) {
             a = ("0" + a).split(/\W/);
